@@ -8,17 +8,17 @@ data:
   hosts.ini: |-
     # inventory/hosts.ini
 
-    [M14_gpuserverzone]
+    [Switchgroup1]
     bb1 ansible_host=192.168.203.70
     bb2 ansible_host=192.168.203.71
   
-    [M16_FAB]
+    [Switchgroup2]
     Switch1 ansible_host=172.20.20.4
     Switch1 ansible_host=172.20.20.5
 
     [arista_switches:children]
-    M14_gpuserverzone
-    M16_FAB
+    Switchgroup1
+    Switchgroup2
 
     [localhost]
     localhost ansible_connection=local ansible_become=false
