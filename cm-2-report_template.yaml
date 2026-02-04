@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: report_template.j2
+  namespace: ansible
+data:
+  report_template.j2: |-
+    Hostname,Model,MGMT_IP,Version,Uptime,CPU_Usage(%),Mem_Usage(%),temp_status,cooling_status,fan_status,PWR_Status,Result
+    {% for host in groups['arista_switches'] -%}
+    {% if hostvars[host].sw_version is defined -%}
+    {{ host }},{{ hostvars[host].model_name }},{{ hostvars[host].mgmt_ip }},{{ hostvars[host].sw_version }},{{ hostvars[host].uptime }} day,{{ hostvars[host].cpu_total }}%, {{ hostvars[host].mem_usage }}%, {{ hostvars[host].temp_status }}, {{ hostvars[host].cooling_status }}, {{ hostvars[host].fan_status }}, {{ hostvars[host].power_check }}, {{ hostvars[host].final_check }}
+    {% else -%}
+    {{ host }},connection fail,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A
+    {% endif -%}
+    {% endfor %}  
