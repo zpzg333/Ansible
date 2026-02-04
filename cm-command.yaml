@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: python-auto-scripts-command
+  namespace: ansible
+apiVersion: v1
+data:
+commands.txt: |-
+    ter len 0
+    show ip route
+    show ip int b
+    show logging 100
