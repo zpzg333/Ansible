@@ -52,17 +52,17 @@ spec:
           name: python-auto-scripts
           items:
           - key: auto-check.py
-            path: /py-auto-check/auto-check.py
+            path: auto-check.py
       - name: command
         configMap: 
           name: python-auto-scripts-command
           items:
           - key: commands.txt
-            path: /py-auto-check/commands.txt
+            path: commands.txt
       - name: devicelist
         configMap: 
           name: python-auto-scripts-devicelist
           items:
           - key: device_list.txt
-            path: /py-auto-check/device_list.txt           
+            path: device_list.txt           
 status: {}
