@@ -15,8 +15,8 @@ data:
     #Switch1 ansible_host=172.20.20.4
     #Switch1 ansible_host=172.20.20.5
 
-    #[arista_switches:children]
-    #Switchgroup1
+    [arista_switches:children]
+    Switchgroup1
     #Switchgroup2
 
     [localhost]
