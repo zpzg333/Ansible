@@ -5,6 +5,6 @@ metadata:
   namespace: ansible
 apiVersion: v1
 data:
-device_list.txt: |-
+  device_list.txt: |-
     192.168.203.70
     192.168.203.71
