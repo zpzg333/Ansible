@@ -97,13 +97,13 @@ spec:
             path: hosts.ini   
       - name: ansible-playbook
         configMap: 
-          name: auto-check.yaml
+          name: ansible-playbook-config
           items:
           - key: auto-check.yaml
             path: auto-check.yaml  
       - name: template-jinja
         configMap: 
-          name: report_template.j2
+          name: template.j2
           items:
           - key: report_template.j2
             path: report_template.j2              
