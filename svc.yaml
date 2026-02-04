@@ -17,6 +17,6 @@ spec:
   selector:
     app: ansible-manage-node
   sessionAffinity: None
-  type: ClusterIP
+  type: LoadBalancer
 status:
   loadBalancer: {}
