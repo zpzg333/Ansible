@@ -5,7 +5,7 @@ metadata:
   namespace: ansible
 apiVersion: v1
 data:
-auto-check.py: |-
+  auto-check.py: |-
     # -*- coding: utf-8 -*-
 
     import paramiko
