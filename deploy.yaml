@@ -27,7 +27,7 @@ spec:
         
         # 2. Ansible 설정 폴더 (Live Update 가능)
         - name: ansible-cfg-vol
-          mountPath: /ansible/ansible/config # ansible.cfg 위치
+          mountPath: /ansible/ansible # ansible.cfg 위치
         - name: ansible-hosts-vol
           mountPath: /ansible/ansible/inventory # inventory 위치
         - name: ansible-playbook-vol
