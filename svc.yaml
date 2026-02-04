@@ -1,17 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  creationTimestamp: "2026-02-04T09:25:50Z"
   labels:
     app: ansible-manage-node
   name: ansible-manage-node
   namespace: ansible
-  resourceVersion: "19224400"
-  uid: 214b34e6-5505-4c1b-ba3b-63538cc57f59
 spec:
-  clusterIP: 10.98.255.187
-  clusterIPs:
-  - 10.98.255.187
   internalTrafficPolicy: Cluster
   ipFamilies:
   - IPv4
