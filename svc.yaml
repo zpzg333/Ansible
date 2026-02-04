@@ -15,6 +15,10 @@ spec:
     name: ssh-port
     protocol: TCP
     targetPort: 22
+  - port: 8080
+    name: testweb
+    protocol: TCP
+    targetPort: 8080
   selector:
     app: ansible-manage-node
   sessionAffinity: None
