@@ -12,7 +12,7 @@ spec:
   ipFamilyPolicy: SingleStack
   ports:
   - port: 22
-    name: ssh
+    name: ssh-port
     protocol: TCP
     targetPort: 22
   selector:
