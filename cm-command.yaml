@@ -5,7 +5,7 @@ metadata:
   namespace: ansible
 apiVersion: v1
 data:
-commands.txt: |-
+  commands.txt: |-
     ter len 0
     show ip route
     show ip int b
