@@ -3,7 +3,6 @@ kind: ConfigMap
 metadata:
   name: hosts.ini
   namespace: ansible
-apiVersion: v1
 data:
   hosts.ini: |-
     # inventory/hosts.ini
