@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ansible.cfg
+  namespace: ansible
+apiVersion: v1
+data:
+  ansible.cfg: |-
+    [defaults]
+    inventory = ./inventory/hosts.ini
+
+
+    host_key_checking = False
+
+    collections_path = /root/.ansible/collections
