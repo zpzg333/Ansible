@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hosts.ini
+  namespace: ansible
+apiVersion: v1
+data:
+  hosts.ini: |-
+    # inventory/hosts.ini
+
+    [M14_gpuserverzone]
+    bb1 ansible_host=192.168.203.70
+    bb2 ansible_host=192.168.203.71
+  
+    [M16_FAB]
+    Switch1 ansible_host=172.20.20.4
+    Switch1 ansible_host=172.20.20.5
+
+    [arista_switches:children]
+    M14_gpuserverzone
+    M16_FAB
+
+    [localhost]
+    localhost ansible_connection=local ansible_become=false
+
+
+    [all:vars]
+    ansible_user=admin
+    ansible_password=admin
+    ansible_connection=network_cli
+    ansible_network_os=arista.eos.eos
+    ansible_become=true
