@@ -6,20 +6,12 @@ metadata:
   name: ansible-manage-node
   namespace: ansible
 spec:
-  progressDeadlineSeconds: 600
   replicas: 1
-  revisionHistoryLimit: 10
   selector:
     matchLabels:
       app: ansible-manage-node
-  strategy:
-    rollingUpdate:
-      maxSurge: 25%
-      maxUnavailable: 25%
-    type: RollingUpdate
   template:
     metadata:
-      creationTimestamp: null
       labels:
         app: ansible-manage-node
     spec:
@@ -28,83 +20,38 @@ spec:
         command: ["/bin/sh", "-c", "sleep infinity"]
         imagePullPolicy: Always
         name: auto-check
-        resources: {}
-        terminationMessagePath: /dev/termination-log
-        terminationMessagePolicy: File
         volumeMounts:
-        - name: py
-          mountPath: /ansible/py-auto-check/auto-check.py
-          subPath: auto-check.py
-        - name: command
-          mountPath: /ansible/py-auto-check/commands.txt
-          subPath: commands.txt
-        - name: devicelist
-          mountPath: /ansible/py-auto-check/device_list.txt
-          subPath: device_list.txt
+        # 1. 파이썬 스크립트 폴더 (Live Update 가능)
+        - name: py-scripts-vol
+          mountPath: /ansible/py-auto-check
         
-        - name: ansible-cfg
-          mountPath: /ansible/ansible/ansible.cfg
-          subPath: ansible.cfg
-        - name: ansible-hosts
-          mountPath: /ansible/ansible/inventory/hosts.ini
-          subPath: hosts.ini
-        - name: ansible-playbook
-          mountPath: /ansible/ansible/playbooks/auto-check.yaml
-          subPath: auto-check.yaml
-        - name: template-jinja
-          mountPath: /ansible/ansible/templates/report_template.j2
-          subPath: report_template.j2
-          
+        # 2. Ansible 설정 폴더 (Live Update 가능)
+        - name: ansible-cfg-vol
+          mountPath: /ansible/ansible/config # ansible.cfg 위치
+        - name: ansible-hosts-vol
+          mountPath: /ansible/ansible/inventory # inventory 위치
+        - name: ansible-playbook-vol
+          mountPath: /ansible/ansible/playbooks # playbook 위치
+        - name: ansible-template-vol
+          mountPath: /ansible/ansible/templates # jinja2 위치
+
       imagePullSecrets:
       - name: ghcr-secret
-      dnsPolicy: ClusterFirst
-      restartPolicy: Always
-      schedulerName: default-scheduler
-      securityContext: {}
-      terminationGracePeriodSeconds: 30
-
+      
       volumes:
-      - name: py
-        configMap: 
+      # ConfigMap과 Volume 연결 시 items를 생략하면 전체 파일이 폴더로 들어갑니다.
+      - name: py-scripts-vol
+        configMap:
           name: python-auto-scripts
-          items:
-          - key: auto-check.py
-            path: auto-check.py
-      - name: command
-        configMap: 
-          name: python-auto-scripts-command
-          items:
-          - key: commands.txt
-            path: commands.txt
-      - name: devicelist
-        configMap: 
-          name: python-auto-scripts-devicelist
-          items:
-          - key: device_list.txt
-            path: device_list.txt    
-
-      - name: ansible-cfg
-        configMap: 
+      - name: ansible-cfg-vol
+        configMap:
           name: ansible.cfg
-          items:
-          - key: ansible.cfg
-            path: ansible.cfg    
-      - name: ansible-hosts
-        configMap: 
+      - name: ansible-hosts-vol
+        configMap:
           name: hosts.ini
-          items:
-          - key: hosts.ini
-            path: hosts.ini   
-      - name: ansible-playbook
-        configMap: 
+      - name: ansible-playbook-vol
+        configMap:
           name: ansible-playbook-config
-          items:
-          - key: auto-check.yaml
-            path: auto-check.yaml  
-      - name: template-jinja
-        configMap: 
+      - name: ansible-template-vol
+        configMap:
           name: template.j2
-          items:
-          - key: report_template.j2
-            path: report_template.j2              
-status: {}
