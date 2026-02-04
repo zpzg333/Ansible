@@ -31,6 +31,8 @@ spec:
         resources: {}
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
+      imagePullSecrets:
+      - name: ghcr-secret
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
