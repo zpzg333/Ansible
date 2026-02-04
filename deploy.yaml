@@ -28,12 +28,9 @@ spec:
         name: auto-check
         volumeMounts:
         # 1. 파이썬 스크립트 폴더 (Live Update 가능)
-        - name: py-scripts-vol
+        - name: py-merged-vol
           mountPath: /ansible/py-auto-check
-       - name: py-devicelist-vol
-          mountPath: /ansible/py-auto-check
-       - name: py-command-vol
-          mountPath: /ansible/py-auto-check          
+
         # 2. Ansible 설정 폴더 (Live Update 가능)
         - name: ansible-cfg-vol
           mountPath: /ansible/ansible # ansible.cfg 위치
@@ -51,15 +48,15 @@ spec:
       
       volumes:
       # ConfigMap과 Volume 연결 시 items를 생략하면 전체 파일이 폴더로 들어갑니다.
-      - name: py-scripts-vol
-        configMap:
-          name: python-auto-scripts
-      - name: py-devicelist-vol
-        configMap:
-          name: python-auto-scripts-devicelist
-      - name: py-command-vol
-        configMap:
-          name: python-auto-scripts-command
+      - name: py-merged-vol
+        projected:
+          sources:
+          - configMap:
+              name: python-auto-scripts
+          - configMap:
+              name: python-auto-scripts-devicelist
+          - configMap:
+              name: python-auto-scripts-command
           
       - name: ansible-cfg-vol
         configMap:
