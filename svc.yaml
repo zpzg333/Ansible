@@ -11,9 +11,10 @@ spec:
   - IPv4
   ipFamilyPolicy: SingleStack
   ports:
-  - port: 8000
+  - port: 22
+    name: ssh
     protocol: TCP
-    targetPort: 8000
+    targetPort: 22
   selector:
     app: ansible-manage-node
   sessionAffinity: None
