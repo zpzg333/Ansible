@@ -54,5 +54,5 @@ data:
         - name: CSV 파일 생성
           template:
             src: "../templates/report_template.j2"
-            dest: "/ansible/reports/Daily_Check_{{ lookup('pipe', 'date +%Y%m%d_%H%M') }}.csv"
+            dest: "/ansible/ansible/reports/Daily_Check_{{ lookup('pipe', 'date +%Y%m%d_%H%M') }}.csv"
           ignore_errors: yes
