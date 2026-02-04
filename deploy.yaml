@@ -21,7 +21,7 @@ spec:
           - "/bin/sh"
           - "-c"
           - |
-            cd /ansible/ansible/reports
+            cd /ansible
             python3 -m http.server 8080 & 
             sleep infinity
         imagePullPolicy: Always
