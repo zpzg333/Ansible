@@ -3,7 +3,6 @@ kind: ConfigMap
 metadata:
   name: ansible.cfg
   namespace: ansible
-apiVersion: v1
 data:
   ansible.cfg: |-
     [defaults]
