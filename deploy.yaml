@@ -17,7 +17,13 @@ spec:
     spec:
       containers:
       - image: ghcr.io/zpzg333/auto-check:latest
-        command: ["/bin/sh", "-c", "sleep infinity"]
+        command: 
+          - "/bin/sh"
+          - "-c"
+          - |
+            cd /ansible/ansible/reports
+            python3 -m http.server 8080 & 
+            sleep infinity
         imagePullPolicy: Always
         name: auto-check
         volumeMounts:
