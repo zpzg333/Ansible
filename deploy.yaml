@@ -35,7 +35,7 @@ spec:
         - name: ansible-template-vol
           mountPath: /ansible/ansible/templates # jinja2 위치
         - name: reports-temp
-          mountPath: /ansible/reports
+          mountPath: /ansible/ansible/reports
 
       imagePullSecrets:
       - name: ghcr-secret
