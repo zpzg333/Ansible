@@ -25,6 +25,7 @@ spec:
     spec:
       containers:
       - image: ghcr.io/zpzg333/auto-check:latest
+        command: ["/bin/sh", "-c", "sleep infinity"]
         imagePullPolicy: Always
         name: auto-check
         resources: {}
