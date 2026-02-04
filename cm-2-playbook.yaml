@@ -1,0 +1,58 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ansible-playbook-config
+  namespace: ansible
+data:
+  auto-check.yaml: |-
+    - name: Arista-autocheck
+      hosts: arista_switches
+      gather_facts: yes
+      ignore_unreachable: yes
+      tasks:
+        - name: 리소스 상태 확인 (CPU/MEM)
+          arista.eos.eos_command:
+            commands:
+              - show version | json
+              - show processes top once | in Cpu
+              - show version | in memory
+              - show system environment all | json
+              - show system environment power 
+              - show running-config sec interface management
+          register: output
+
+        - name: 데이터 1차 가공
+          set_fact:
+            cpu_us: "{{ output.stdout[1] | regex_search('([0-9.]+) us', '\\1') | first | default(0) | float }}"
+            cpu_sy: "{{ output.stdout[1] | regex_search('([0-9.]+) sy', '\\1') | first | default(0) | float }}"
+            total_mib: "{{ output.stdout[2] | regex_search('Total memory:\\s*(\\d+)', '\\1') | first | default(0) }}"
+            free_mib: "{{ output.stdout[2] | regex_search('Free memory:\\s*(\\d+)', '\\1') | first | default(0) }}"      
+            psu_states: "{{ output.stdout[4] | regex_findall('(Ok|Power Loss|offline|fault)') }}"
+
+        - name: 데이터 결과
+          set_fact:
+            sw_version: "{{ output.stdout[0].version }}"
+            model_name: "{{ output.stdout[0].modelName }}"
+            uptime: "{{ (output.stdout[0].uptime | float / 86400) | round(2) }}"
+            cpu_total: "{{ (cpu_us | float + cpu_sy | float) | round(1) }}"
+            mem_usage: "{{ (((total_mib | float - free_mib | float) / total_mib | float) * 100) | round(2) }}"
+            temp_status: "{{ output.stdout[3].temperature.systemStatus }}"
+            cooling_status: "{{ output.stdout[3].cooling.systemStatus }}"
+            fan_status: "{{ output.stdout[3].cooling.fansStatus }}"
+            power_check: "{{ 'Check' if (psu_states | length == 0 or psu_states | reject('equalto', 'ok') | list | length > 0) else 'OK' }}"
+            mgmt_ip: "{{ output.stdout[5] | regex_search('ip address ([0-9.]+)', '\\1') | first | default('N/A') }}"
+
+        - name: 최종 결과
+          set_fact:
+            final_check: "{{ 'OK' if (cpu_total|float < 70 and mem_usage|float < 70 and temp_status == 'OK' and cooling_status == 'OK' and fan_status == 'OK' and power_check == 'OK') else 'Check' }}"
+
+    - name: 보고서 생성 (Local)
+      hosts: localhost
+      gather_facts: no
+      connection: local
+      tasks:
+        - name: CSV 파일 생성
+          template:
+            src: "../templates/report_template.j2"
+            dest: "/ansible/reports/Daily_Check_{{ lookup('pipe', 'date +%Y%m%d_%H%M') }}.csv"
+          ignore_errors: yes
