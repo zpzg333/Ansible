@@ -12,11 +12,11 @@ data:
     bb2 ansible_host=192.168.203.71
   
     #[Switchgroup2]
-    Switch1 ansible_host=172.20.20.4
-    Switch1 ansible_host=172.20.20.5
+    #Switch1 ansible_host=172.20.20.4
+    #Switch1 ansible_host=172.20.20.5
 
-    [arista_switches:children]
-    Switchgroup1
+    #[arista_switches:children]
+    #Switchgroup1
     #Switchgroup2
 
     [localhost]
