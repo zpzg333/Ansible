@@ -33,11 +33,14 @@ spec:
         terminationMessagePolicy: File
         volumeMounts:
         - name: py
-          mountPath: /ansible/py-auto-check/
+          mountPath: /ansible/py-auto-check/auto-check.py
+          subPath: auto-check.py
         - name: command
-          mountPath: /ansible/py-auto-check/
+          mountPath: /ansible/py-auto-check/commands.txt
+          subPath: commands.txt
         - name: devicelist
-          mountPath: /ansible/py-auto-check/          
+          mountPath: /ansible/py-auto-check/device_list.txt
+          subPath: device_list.txt
       imagePullSecrets:
       - name: ghcr-secret
       dnsPolicy: ClusterFirst
