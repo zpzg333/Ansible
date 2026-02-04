@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: report_template.j2
+  name: template.j2
   namespace: ansible
 data:
   report_template.j2: |-
