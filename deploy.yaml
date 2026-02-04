@@ -31,6 +31,13 @@ spec:
         resources: {}
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
+        volumeMounts:
+        - name: py
+          mountPath: /ansible/py-auto-check/
+        - name: command
+          mountPath: /ansible/py-auto-check/
+        - name: devicelist
+          mountPath: /ansible/py-auto-check/          
       imagePullSecrets:
       - name: ghcr-secret
       dnsPolicy: ClusterFirst
@@ -38,4 +45,24 @@ spec:
       schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 30
+
+      volumes:
+      - name: py
+        configMap: 
+          name: python-auto-scripts
+          items:
+          - key: auto-check.py
+            path: /py-auto-check/auto-check.py
+      - name: command
+        configMap: 
+          name: python-auto-scripts-command
+          items:
+          - key: commands.txt
+            path: /py-auto-check/commands.txt
+      - name: devicelist
+        configMap: 
+          name: python-auto-scripts-devicelist
+          items:
+          - key: device_list.txt
+            path: /py-auto-check/device_list.txt           
 status: {}
