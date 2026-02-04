@@ -34,6 +34,8 @@ spec:
           mountPath: /ansible/ansible/playbooks # playbook 위치
         - name: ansible-template-vol
           mountPath: /ansible/ansible/templates # jinja2 위치
+        - name: reports-temp
+          mountPath: /ansible/reports
 
       imagePullSecrets:
       - name: ghcr-secret
@@ -55,3 +57,5 @@ spec:
       - name: ansible-template-vol
         configMap:
           name: template.j2
+      - name: reports-temp
+        emptyDir: {}
