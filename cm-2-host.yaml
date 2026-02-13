@@ -8,8 +8,17 @@ data:
     # inventory/hosts.ini
 
     [Switchgroup1]
-    bb1 ansible_host=192.168.203.70
-    bb2 ansible_host=192.168.203.71
+    switch1 ansible_host=172.20.20.18
+    switch2 ansible_host=172.20.20.9
+    switch3 ansible_host=172.20.20.14
+    switch4 ansible_host=172.20.20.16
+    switch5 ansible_host=172.20.20.17
+    switch6 ansible_host=172.20.20.11
+    switch7 ansible_host=172.20.20.13
+    switch8 ansible_host=172.20.20.8
+    switch9 ansible_host=172.20.20.10
+    switch10 ansible_host=172.20.20.15
+    switch11 ansible_host=172.20.20.12
   
     #[Switchgroup2]
     #Switch1 ansible_host=172.20.20.4
