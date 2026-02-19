@@ -31,7 +31,7 @@ data:
     Switchgroup1
     #Switchgroup2
 
-    [localhost]
+    [local]
     localhost ansible_connection=local ansible_become=false
 
 
