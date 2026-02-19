@@ -42,5 +42,5 @@ data:
     ansible_network_os=arista.eos.eos
     ansible_become=true
     #아래 두줄은 보안경고를 무시
-    ansible_ssh_common_args='-o StrictHostKeyChecking=no'
-    ansible_paramiko_host_key_auto_add=True
+    #ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+    #ansible_paramiko_host_key_auto_add=True
