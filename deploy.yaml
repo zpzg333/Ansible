@@ -33,7 +33,10 @@ spec:
         # 1. 파이썬 스크립트 폴더 (Live Update 가능)
         - name: py-merged-vol
           mountPath: /ansible/py-auto-check
-
+          
+        - name: reports
+          mountPath: /ansible/py-auto-check/check_results # inventory 위치
+          
         # 2. Ansible 설정 폴더 
         - name: ansible-cfg-vol
           mountPath: /ansible/ansible/ansible.cfg # ansible.cfg 위치
@@ -62,6 +65,9 @@ spec:
               name: python-auto-scripts-devicelist
           - configMap:
               name: python-auto-scripts-command
+
+      - name: reports
+        emptyDir: {}
           
       - name: ansible-cfg-vol
         configMap:
