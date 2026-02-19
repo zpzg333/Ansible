@@ -60,15 +60,19 @@ spec:
           
       - name: ansible-cfg-vol
         configMap:
+          defaultMode: 256 # 해당 기본값이 420 일때 777 권한으로 Ansible 이 전역 설정을 보안에 취약하여 참조하지 않음을 방지
           name: ansible.cfg
       - name: ansible-hosts-vol
         configMap:
+          defaultMode: 256
           name: hosts.ini
       - name: ansible-playbook-vol
         configMap:
+          defaultMode: 256
           name: ansible-playbook-config
       - name: ansible-template-vol
         configMap:
+          defaultMode: 256
           name: template.j2
       - name: reports-temp
         emptyDir: {}
