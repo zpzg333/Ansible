@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   labels:
     app: ansible-manage-node
-  name: ansible-manage-no
+  name: ansible-manage-node
   namespace: ansible
 spec:
   replicas: 1
