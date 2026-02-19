@@ -17,6 +17,9 @@ spec:
     spec:
       containers:
       - image: ghcr.io/zpzg333/auto-check:latest
+        env:
+        - name: Ansible_config
+          value: /ansible/ansible/ansible.cfg
         command: 
           - "/bin/sh"
           - "-c"
