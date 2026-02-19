@@ -24,7 +24,6 @@ spec:
           - "/bin/sh"
           - "-c"
           - |
-            export ANSIBLE_CONFIG=/ansible/ansible/ansible.cfg
             cd /ansible
             python3 -m http.server 8080 & 
             sleep infinity
@@ -35,10 +34,11 @@ spec:
         - name: py-merged-vol
           mountPath: /ansible/py-auto-check
 
-        # 2. Ansible 설정 폴더 (Live Update 가능)
+        # 2. Ansible 설정 폴더 
         - name: ansible-cfg-vol
           mountPath: /ansible/ansible/ansible.cfg # ansible.cfg 위치
-          subPath: ansible.cfg
+          subPath: ansible.cfg               # subpath 방식, 특정 파일하나만 주입하는 방식 이방식을 채택 , 원래의 폴더 권한(도커내용)을 유지함, config map 업데이트가 불가능
+          #아래는 (Live Update 가능) / 디렉토리 마운트 방식 / 볼륨 마운트가 폴더의 권한을 777 로 강제 설정함
         - name: ansible-hosts-vol
           mountPath: /ansible/ansible/inventory # inventory 위치
         - name: ansible-playbook-vol
@@ -68,15 +68,12 @@ spec:
           name: ansible.cfg
       - name: ansible-hosts-vol
         configMap:
-          defaultMode: 256
           name: hosts.ini
       - name: ansible-playbook-vol
         configMap:
-          defaultMode: 256
           name: ansible-playbook-config
       - name: ansible-template-vol
         configMap:
-          defaultMode: 256
           name: template.j2
       - name: reports-temp
-        emptyDir: {}
+        emptyDir: {} # 쓰기(결과자료) 할 수 있도록 빈공간 제공
