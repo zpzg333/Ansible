@@ -21,6 +21,7 @@ spec:
           - "/bin/sh"
           - "-c"
           - |
+            export ANSIBLE_CONFIG=/ansible/ansible/ansible.cfg
             cd /ansible
             python3 -m http.server 8080 & 
             sleep infinity
