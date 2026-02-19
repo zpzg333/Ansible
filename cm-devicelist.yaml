@@ -6,5 +6,5 @@ metadata:
 apiVersion: v1
 data:
   device_list.txt: |-
-    192.168.203.70
-    192.168.203.71
+    192.168.203.66
+    192.168.203.62
