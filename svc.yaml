@@ -4,6 +4,8 @@ metadata:
   labels:
     app: ansible-manage-node
   name: ansible-manage-node
+  annotations:
+    metallb.universe.tf/loadBalancerIPs: 192.168.203.63
   namespace: ansible
 spec:
   internalTrafficPolicy: Cluster
