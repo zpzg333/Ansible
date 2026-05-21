@@ -81,6 +81,27 @@ kubectl apply -f deploy.yaml
 kubectl apply -f svc.yaml
 ```
 
+## ArgoCD 연동
+
+이 프로젝트는 **ArgoCD(GitOps)** 와 연동되어 있습니다.  
+GitHub 레포지토리의 YAML 파일을 수정하면 ArgoCD가 자동으로 감지하여 Kubernetes 클러스터에 배포합니다.  
+`kubectl apply` 없이 **git push만으로 배포가 완료**됩니다.
+
+```
+GitHub push (YAML 수정)
+        ↓
+ArgoCD 자동 감지 (auto-sync)
+        ↓
+Kubernetes 자동 배포 (Deployment / ConfigMap 반영)
+```
+
+| 항목 | 내용 |
+|---|---|
+| GitOps 도구 | ArgoCD |
+| 배포 트리거 | GitHub push |
+| 대상 | deploy.yaml, svc.yaml, ConfigMap 전체 |
+| ArgoCD 서비스 | www.syargocd.com |
+
 ## 배경
 
 Arista 스위치 장비 점검 업무를 자동화하여 반복 작업을 줄이고,  
