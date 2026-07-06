@@ -12,13 +12,13 @@
 고객사에 완성된 ansible 파일로 자동화를 시도하였으나, ansible 버전 차이로 실행되지 않아 
 docker build 수행
 
-# 1. 베이스 이미지 : 실행될 OS 를 선정
+1. 베이스 이미지 : 실행될 OS 를 선정
 FROM python:3.12-slim
 
-# 2. 작업 디렉토리 : FROM python:3.9-slim OS가 실행되면 폴더생성
+2. 작업 디렉토리 : FROM python:3.9-slim OS가 실행되면 폴더생성
 WORKDIR /ansible
 
-# 3. 필수 패키지 설치 : Docker 빌드시 필요한 패키지를 설치함
+3. 필수 패키지 설치 : Docker 빌드시 필요한 패키지를 설치함
 RUN apt-get update && apt-get install -y --no-install-recommends \
     sshpass \
     git \
