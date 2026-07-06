@@ -49,34 +49,6 @@ Kubernetes Cluster
         └── auto-check.py       ← Python SSH 스크립트
 ```
 
-## 수집 항목
-
-| 항목 | 수집 데이터 |
-|---|---|
-| 리소스 | CPU 사용률 (user/sys), 메모리 사용률 |
-| 환경 | 온도 상태, 쿨링 상태, 팬 상태 |
-| 전원 | PSU 상태 (Ok / Power Loss / fault) |
-| 장비 정보 | EOS 버전, 모델명, 업타임 |
-| 라우팅 | `show ip route`, `show ip int b` |
-| 로그 | 최근 로그 100줄 |
-
-## 기술 스택
-
-| 항목 | 기술 |
-|---|---|
-| 인프라 | Kubernetes |
-| 자동화 | Ansible (`arista.eos` Collection) |
-| 스크립트 | Python 3 + Paramiko (SSH) |
-| 컨테이너 | Docker → GHCR (`ghcr.io/zpzg333/auto-check`) |
-| 설정 관리 | Kubernetes ConfigMap (Live Update) |
-
-## 사용 기술 포인트
-
-- **Ansible EOS Collection**: `arista.eos.eos_command`로 Arista 전용 명령 실행 및 JSON 파싱
-- **Jinja2 정규식 필터**: playbook 내 `regex_search`로 CLI 출력 데이터 추출·가공
-- **Kubernetes 운영**: ConfigMap 기반 설정 분리로 컨테이너 재시작 없이 운영 파라미터 변경
-- **멀티 레이어 자동화**: Python SSH(paramiko)와 Ansible을 혼용하여 상황에 맞게 활용
-
 ## 실행 방법
 
 ```bash
