@@ -1,10 +1,10 @@
 # Arista Network Auto-Check System
 
-> Kubernetes 위에서 운영되는 스위치 자동 상태 점검 컨테이너
-> Python SSH + Ansible EOS Collection을 두가지 자동 점검 시나리오를 구성하였으며, 환경에 맞게 선택하여 사용
-> deployment(deploy.yaml) 에 사용한 이미지는 직접 docker bulid 한 이미지를 사용(ghcr.io/zpzg333/auto-check:latest) 하여 어떤 간편하게 시스템 종속성 문제 해결
-> 파이썬 자동 점검 구현을 ansible을 참고하여 inventory (점검 대상) / playbook (수행 명령어 모음) / Export (jira 기반의 문서 출력) 부분으로 구분 구현
-> 가변이 필요한 파일들 (ex inventory , playbook) 을 configmap 으로 구분하여 실행중인 컨테이너의 파일을 손쉽게 git에서 변경해도 argocd를 통해서 즉각 수정되도록 구
+* Kubernetes 위에서 운영되는 스위치 자동 상태 점검 컨테이너
+* Python SSH + Ansible EOS Collection을 두가지 자동 점검 시나리오를 구성하였으며, 환경에 맞게 선택하여 사용
+* deployment(deploy.yaml) 에 사용한 이미지는 직접 docker bulid 한 이미지를 사용(ghcr.io/zpzg333/auto-check:latest) 하여 어떤 간편하게 시스템 종속성 문제 해결
+* 파이썬 자동 점검 구현을 ansible을 참고하여 inventory (점검 대상) / playbook (수행 명령어 모음) / Export (jira 기반의 문서 출력) 부분으로 구분 구현
+* 가변이 필요한 파일들 (ex inventory , playbook) 을 configmap 으로 구분하여 실행중인 컨테이너의 파일을 손쉽게 git에서 변경해도 argocd를 통해서 즉각 수정되도록 구
 
 ---
 
