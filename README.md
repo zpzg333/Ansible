@@ -1,14 +1,14 @@
 # Arista Network Auto-Check System
 
 * Kubernetes 위에서 운영되는 스위치 자동 상태 점검 컨테이너
-* Python SSH + Ansible EOS Collection을 두가지 자동 점검 시나리오를 구성하였으며, 환경에 맞게 선택하여 사용
-* deployment(deploy.yaml) 에 사용한 이미지는 직접 docker bulid 한 이미지를 사용(ghcr.io/zpzg333/auto-check:latest) 하여 어떤 간편하게 시스템 종속성 문제 해결
+* SSH 기반 Python + Ansible 두가지 자동 점검 시나리오를 구성
+* deployment(deploy.yaml) 에 사용한 이미지는 직접 docker bulid 한 이미지를 사용(ghcr.io/zpzg333/auto-check:latest) 시스템 종속성 문제 해결
 * 파이썬 자동 점검 구현을 ansible을 참고하여 inventory (점검 대상) / playbook (수행 명령어 모음) / Export (jira 기반의 문서 출력) 부분으로 구분 구현
-* 가변이 필요한 파일들 (ex inventory , playbook) 을 configmap 으로 구분하여 실행중인 컨테이너의 파일을 손쉽게 git에서 변경해도 argocd를 통해서 즉각 수정되도록 구
+* 가변이 필요한 파일을 configmap 으로 구성하여 실행중인 컨테이너의 파일을 손쉽게 git에서 변경해도 argocd를 통해서 즉각 수정되도록 구현
 
 ---
 
-## docker
+## docker iamge
 고객사에 완성된 ansible 파일로 자동화를 시도하였으나, ansible 버전 차이로 실행되지 않아 
 docker build 수행
 
@@ -31,18 +31,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ansible-galaxy collection install arista.eos
 
 ENTRYPOINT ["/bin/bash"]
-
-## 개요
-
-네트워크 엔지니어가 수동으로 반복하던 장비 상태 점검 업무를 자동화한 시스템입니다.  
-Kubernetes 위에서 동작하며, ConfigMap을 활용한 **무중단 설정 변경(Live Update)** 을 지원합니다.
-
-## 주요 기능
-
-- **자동 상태 수집**: CPU, 메모리, 온도, 팬, PSU 등 장비 헬스 데이터 자동 수집
-- **멀티 장비 동시 점검**: device_list 기반 다수 스위치 병렬 점검
-- **자동 리포트 생성**: 수집 결과를 정형화된 보고서로 자동 출력
-- **Live Update**: 재배포 없이 ConfigMap 수정만으로 장비 목록·명령어·플레이북 즉시 반영
 
 ## 아키텍처
 
@@ -121,15 +109,3 @@ ArgoCD 자동 감지 (auto-sync)
         ↓
 Kubernetes 자동 배포 (Deployment / ConfigMap 반영)
 ```
-
-| 항목 | 내용 |
-|---|---|
-| GitOps 도구 | ArgoCD |
-| 배포 트리거 | GitHub push |
-| 대상 | deploy.yaml, svc.yaml, ConfigMap 전체 |
-| ArgoCD 서비스 | www.syargocd.com |
-
-## 배경
-
-Arista 스위치 장비 점검 업무를 자동화하여 반복 작업을 줄이고,  
-이상 징후를 조기에 탐지할 수 있도록 구성한 실무 프로젝트입니다.
