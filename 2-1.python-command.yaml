@@ -9,4 +9,5 @@ data:
     ter len 0
     show ip route
     show ip int b
-    show logging 100
+    show logging 100 
+# 수행하고 싶은 명령어를 추가
