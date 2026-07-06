@@ -1,7 +1,8 @@
 # Arista Network Auto-Check System
 
 > Kubernetes 위에서 운영되는 Arista 스위치 자동 상태 점검 시스템.  
-> Python SSH + Ansible EOS Collection을 활용하여 네트워크 장비의 상태를 자동으로 수집·분석·보고.
+> Python SSH + Ansible EOS Collection을 두가지 자동 점검 시나리오를 구성하였으며, 환경에 맞게 선택하여 사용
+> 도커 기반
 
 ---
 
